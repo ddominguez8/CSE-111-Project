@@ -1,3 +1,5 @@
+-- Salvador Rodriguez & David Dominguez
+-- 11/6/2021
 --How to sign in etc
 CREATE TABLE Users (
     u_user_id CHAR(50) NOT NULL,
@@ -23,7 +25,7 @@ CREATE TABLE Best_Selling_Cars (
 --General comments on posts
 CREATE TABLE Comments (
     c_user_id CHAR(50) NOT NULL,
-    c_reply_id CHAR(50) NOT NULL,
+    c_reply_post_id CHAR(50) NOT NULL,
     c_id CHAR(50) NOT NULL,
     c_content VARCHAR(500)
 );
