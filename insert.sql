@@ -19,3 +19,13 @@ INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('admin', 'Car club lo
 
 -- Insertion of sample comments into table.
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 1, 1, 'Sample comment.');
+INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user1', 2, 1, 'yo');
+INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user2', 2, 1, 'yo whats up');
+
+-- Insertion of Commenters. 
+
+
+-- Insertion of Features.
+
+
+-- Insertion of Best Selling Cars.
