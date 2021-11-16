@@ -39,7 +39,8 @@ CREATE TABLE Commenters (
 
 --Contains features as chars
 CREATE TABLE Features (
-    features CHAR(50) NOT NULL
+    f_id CHAR(50) NOT NULL,
+    f_features CHAR(50) NOT NULL
 );
 
 

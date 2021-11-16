@@ -20,12 +20,18 @@ INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('admin', 'Car club lo
 -- Insertion of sample comments into table.
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 1, 1, 'Sample comment.');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user1', 2, 1, 'yo');
-INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user2', 2, 1, 'yo whats up');
+INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user2', 2, 2, 'yo whats up');
 
 -- Insertion of Commenters. 
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'admin', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user1', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user2', 1);
 
 
 -- Insertion of Features.
-
+INSERT INTO Features(f_id, f_features) VALUES (1, 'Leather Seats');
+INSERT INTO Features(f_id, f_features) VALUES (2, 'Navigation sys/carplay');
+INSERT INTO Features(f_id, f_features) VALUES (3, 'Sunroof');
+INSERT INTO Features(f_id, f_features) VALUES (4, 'atuo/manual transmission');
 
 -- Insertion of Best Selling Cars.
