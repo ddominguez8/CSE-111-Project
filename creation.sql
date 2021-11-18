@@ -11,7 +11,8 @@ CREATE TABLE Users (
 CREATE TABLE Posts (
     p_user_id CHAR(50) NOT NULL,
     p_content VARCHAR(500) NOT NULL,
-    p_post_id INTEGER NOT NULL
+    p_post_id INTEGER NOT NULL,
+    p_type CHAR(50)
 );
 
 --Best selling cars based on year model etc
