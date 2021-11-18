@@ -15,17 +15,17 @@ INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user8', 'user8@proton
 INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user9', 'user9@protonmail.com', 'passworduser9');
 
 -- Insertion of sample posts into table.
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('admin', 'Hi everyone welcome to our CSE-111 Project!', 1);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user2', 'yo trying to connect with people', 2);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user3', 'Who has a cool car?', 3);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user4', 'Looking to buy a new car, tips?', 4);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('admin', 'Car club looking for members', 5);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user7', 'Car club looking for members', 5);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user3', 'I wonder about the new Tesla', 6);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user8', 'Honda civic pic link', 7);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user5', 'comment your car here', 8);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('user1', 'how is used market looking?', 9);
-INSERT INTO Posts(p_user_id, p_content, p_post_id) VALUES ('admin', 'red or black interior?', 10);
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('admin', 'Hi everyone welcome to our CSE-111 Project!', 1, 'Yes');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user2', 'yo trying to connect with people', 2, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user3', 'Who has a cool car?', 3, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user4', 'Looking to buy a new car, tips?', 4, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('admin', 'Car club looking for members', 5, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user7', 'Car club looking for members', 5, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user3', 'I wonder about the new Tesla', 6, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user8', 'Honda civic pic link', 7, 'Yes');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user5', 'comment your car here', 8, 'Yes');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('user1', 'how is used market looking?', 9, 'No');
+INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) VALUES ('admin', 'red or black interior?', 10, 'No');
 
 -- Insertion of sample comments into table.
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 1, 1, 'Sample comment.');
@@ -60,8 +60,15 @@ INSERT INTO Features(f_id, f_features) VALUES (2, 'Navigation sys/carplay');
 INSERT INTO Features(f_id, f_features) VALUES (3, 'Sunroof');
 INSERT INTO Features(f_id, f_features) VALUES (4, 'auto/manual transmission');
 
+    
 -- Insertion of Best Selling Cars.
 .mode "csv"
 .headers off
 
 .import '| tail -n +2 Best_Sell.csv' Best_Selling_Cars
+
+-- Insert into carFeatures
+INSERT INTO carFeatures
+    SELECT b_id, abs(random() % 4) + 1
+    FROM Best_Selling_Cars;
+

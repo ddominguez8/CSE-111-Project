@@ -12,7 +12,7 @@ CREATE TABLE Posts (
     p_user_id CHAR(50) NOT NULL,
     p_content VARCHAR(500) NOT NULL,
     p_post_id INTEGER NOT NULL,
-    p_type CHAR(50)
+    p_stype CHAR(50)
 );
 
 --Best selling cars based on year model etc
@@ -45,9 +45,12 @@ CREATE TABLE Features (
     f_features CHAR(50) NOT NULL
 );
 
-CREATE TABLE SellingPost(
-    s_post_id INTEGER NOT NULL
+--Join table between best_selling / Features
+CREATE TABLE carFeatures (
+    f_id INTEGER NOT NULL,
+    b_id INTEGER
 );
+
 
 
 
