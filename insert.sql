@@ -71,7 +71,14 @@ INSERT INTO Features(f_id, f_features) VALUES (1, 'Leather Seats');
 INSERT INTO Features(f_id, f_features) VALUES (2, 'Navigation sys/carplay');
 INSERT INTO Features(f_id, f_features) VALUES (3, 'Sunroof');
 INSERT INTO Features(f_id, f_features) VALUES (4, 'auto/manual transmission');
-
+INSERT INTO Features(f_id, f_features) VALUES (5, 'Heated Seats');
+INSERT INTO Features(f_id, f_features) VALUES (6, 'Bluetooth');
+INSERT INTO Features(f_id, f_features) VALUES (7, 'Remote Start');
+INSERT INTO Features(f_id, f_features) VALUES (8, 'Blind Spot Monitoring');
+INSERT INTO Features(f_id, f_features) VALUES (7, 'Remote Start');
+INSERT INTO Features(f_id, f_features) VALUES (8, 'Blind Spot Monitoring');
+INSERT INTO Features(f_id, f_features) VALUES (9, 'Third Row Seating');
+INSERT INTO Features(f_id, f_features) VALUES (10, 'Apple CarPlay/Android Auto');
     
 -- Insertion of Best Selling Cars.
 .mode "csv"
@@ -81,7 +88,7 @@ INSERT INTO Features(f_id, f_features) VALUES (4, 'auto/manual transmission');
 --6
 -- Insert into carFeatures
 INSERT INTO carFeatures
-    SELECT abs(random() % 4) + 1, b_id
+    SELECT abs(random() % 10) + 1, b_id
     FROM Best_Selling_Cars;
 
 -- SELECT bs.b_model, f.f_features
