@@ -32,7 +32,7 @@ INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user1', 2, 2, 'yo');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user2', 2, 3, 'yo whats up');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 1, 4, 'Sample comment.');
-INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user5', 2, 5, 'yo');
+INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 2, 5, 'yo');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user3', 4, 6, 'yo whats up');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('admin', 1, 7, 'Please refer to rules.');
 INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user5', 2, 8, 'yo');
@@ -41,16 +41,26 @@ INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user7
 
 
 -- Insertion of Commenters. 
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'admin', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user1', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user2', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user3', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user4', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user5', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user6', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user7', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user8', 1);
-INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user9', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'admin', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user1', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user2', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user3', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user4', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user5', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user6', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user7', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user8', 1);
+-- INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user9', 1);
+
+INSERT INTO Commenters 
+    SELECT '1', c.c_user_id, '1'
+    FROM Comments c
+    WHERE c.c_user_id NOT IN
+        (
+            SELECT cm_user_id
+            FROM Commenters
+        );
+
 
 
 

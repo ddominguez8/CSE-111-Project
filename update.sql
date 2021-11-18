@@ -4,6 +4,7 @@
 -- Various cases where an attribute may need to be updated/queried. 
 
 -- Case: Edit post. 
+
 UPDATE Posts
 SET p_content = 'updated post.'
 WHERE p_post_id = 2;
@@ -12,6 +13,17 @@ WHERE p_post_id = 2;
 UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user1';
+
+--alternate case
+UPDATE Commenters
+SET cm_count = count(c_user_id)
+FROM Comments
+WHERE cm_user_id = c_user_id;
+
+-- SELECT c_user_id, count(c_user_id)
+-- FROM Comments
+-- GROUP BY c_user_id;
+
 
 -- Case: Updating commenters count, when comment is deleted
 UPDATE Commenters
