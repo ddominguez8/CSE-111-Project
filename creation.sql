@@ -16,6 +16,7 @@ CREATE TABLE Posts (
 
 --Best selling cars based on year model etc
 CREATE TABLE Best_Selling_Cars (
+    b_id,
     b_year year not null,
     b_modelNumber CHAR(50) NOT NULL,
     b_manufacturer CHAR(50) NOT NULL,
