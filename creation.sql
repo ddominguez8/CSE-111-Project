@@ -16,9 +16,9 @@ CREATE TABLE Posts (
 
 --Best selling cars based on year model etc
 CREATE TABLE Best_Selling_Cars (
-    b_id,
+    b_id INTEGER NOT NULL,
     b_year year not null,
-    b_modelNumber CHAR(50) NOT NULL,
+    b_model CHAR(50) NOT NULL,
     b_manufacturer CHAR(50) NOT NULL,
     b_amountSold INTEGER NOT NULL
 );
@@ -42,6 +42,10 @@ CREATE TABLE Commenters (
 CREATE TABLE Features (
     f_id CHAR(50) NOT NULL,
     f_features CHAR(50) NOT NULL
+);
+
+CREATE TABLE SellingPost(
+    s_post_id INTEGER NOT NULL
 );
 
 
