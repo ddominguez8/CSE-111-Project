@@ -61,6 +61,13 @@ CREATE TABLE sellPost(
     sp_price INTEGER 
 );
 
+CREATE TABLE postCommenters(
+    p_post_id INTEGER NOT NULL,
+    cm_id INTEGER NOT NULL,
+    pc_user_id CHAR(50) NOT NULL
+);
+
+
 
 
 

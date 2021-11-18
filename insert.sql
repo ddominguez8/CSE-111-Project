@@ -90,6 +90,7 @@ INSERT INTO carFeatures
 -- AND cf.f_id = f.f_id
 -- AND cf.b_id = bs.b_id;
 
+--7
 -- Inserting into sellPost
 INSERT INTO sellPost(p_id,
     sp_year,
@@ -102,3 +103,9 @@ INSERT INTO sellPost(p_id,
     AND b.b_id = abs(random()%2100)
     AND b.b_id = c.b_id
     AND c.f_id = f.f_id;
+
+--commenters that have created a post
+INSERT INTO postCommenters
+    SELECT p_post_id, cm_id, cm_user_id
+    FROM Posts, Commenters
+    WHERE p_user_id = cm_user_id;

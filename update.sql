@@ -4,29 +4,29 @@
 -- Various cases where an attribute may need to be updated/queried. 
 
 -- Case: Edit post. 
---7
+--8
 UPDATE Posts
 SET p_content = 'updated post.', p_stype = 'Yes'
 WHERE p_post_id = 2;
 
 -- Case: Updating commenters count, when new comment is set
 --need it wont update if you insert a statement that has already been used
---8
-INSERT INTO Comments(c_user_id, c_reply_post_id, c_content) VALUES ('user7', 7, 'hesfllo');
 
+INSERT INTO Comments(c_user_id, c_reply_post_id, c_content) VALUES ('user7', 7, 'hesfllo');
+--9
 UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user7';
 
 
 -- Case: Updating commenters count, when comment is deleted
---9 -- keep count if youre removing some queries then remove
+--10-- keep count if youre removing some queries then remove
 --that set count
 UPDATE Commenters
 SET cm_count = cm_count - 1
 WHERE cm_user_id = 'user2';
 
---10
+--11
 -- Update user_id. 
 UPDATE Users
 SET u_user_id = 'new_username'
@@ -35,17 +35,17 @@ WHERE 'new_username' NOT IN
 	FROM Users)
 AND u_email = 'user1@protonmail.com';
 
---11 update user id for other tables
+--12 update user id for other tables
 UPDATE Posts
 SET p_user_id = 'new_username'
 WHERE p_user_id = 'user1';
 
---12 update user id for comments
+--13 update user id for comments
 UPDATE Comments
 SET c_user_id = 'new_username'
 WHERE c_user_id = 'user1';
 
---13 update user id for commenters
+--14 update user id for commenters
 UPDATE Commenters
 SET cm_user_id = 'new_username'
 WHERE cm_user_id = 'user1';
