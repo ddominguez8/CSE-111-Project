@@ -44,6 +44,14 @@ INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) VALUES ('user7
 INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'admin', 1);
 INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user1', 1);
 INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user2', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user3', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user4', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user5', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (1, 'user6', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (2, 'user7', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user8', 1);
+INSERT INTO Commenters(cm_id, cm_user_id, cm_count) VALUES (3, 'user9', 1);
+
 
 
 -- Insertion of Features.
@@ -53,3 +61,7 @@ INSERT INTO Features(f_id, f_features) VALUES (3, 'Sunroof');
 INSERT INTO Features(f_id, f_features) VALUES (4, 'auto/manual transmission');
 
 -- Insertion of Best Selling Cars.
+.mode "csv"
+.headers off
+
+.import '| tail -n +2 Best_Sell.csv' Best_Selling_Cars

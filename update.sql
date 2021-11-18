@@ -8,10 +8,15 @@ UPDATE Posts
 SET p_content = 'updated post.'
 WHERE p_post_id = 2;
 
--- Case: Updating commenters count.
+-- Case: Updating commenters count, when new comment is set
 UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user1';
+
+-- Case: Updating commenters count, when comment is deleted
+UPDATE Commenters
+SET cm_count = cm_count - 1
+WHERE cm_user_id = 'user2';
 
 -- Case: Delete post. 
 DELETE FROM Posts
@@ -32,9 +37,9 @@ WHERE c_id = 2;
 -- Case: Find user id along with their comments on a certain post
 -- and total comment count.
 -- Utilizes 3 tables as requested.
-SELECT c_user_id, c_id, p_post_id, cm_count
-FROM Commenters, Comments, Posts
-WHERE cm_user_id = c_user_id 
-AND c_reply_post_id = p_post_id
-AND p_post_id = 2
-GROUP BY p_post_id;
+-- SELECT c_user_id, c_id, p_post_id, cm_count
+-- FROM Commenters, Comments, Posts
+-- WHERE cm_user_id = c_user_id 
+-- AND c_reply_post_id = p_post_id
+-- AND p_post_id = 2
+-- GROUP BY p_post_id;
