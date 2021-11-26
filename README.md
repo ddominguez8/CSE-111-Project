@@ -10,3 +10,20 @@ This is a project done in collaboration with David Dominguez and Salvador Rodrig
 
 # Project Checkpoint 2:
 - Cars Being Sold Data Set: (https://www.kaggle.com/tanersekmen/us-car-data-analysis-eda-visualization/data)
+
+# Project Checkpoint 3: 
+- To successfully retrieve all the correct modules please run the following commands.
+- In addition, for the npm commands please run these commands while in the /server directory. 
+```
+sudo apt install nodejs
+sudo apt install npm
+npm install express 
+npm install sqlite3
+npm install bluebird
+```
+- Note to Sal: Please add the newly created **node_modules** folder to the .gitignore file (in root of repo dir) by running: 
+```
+echo node_modules > .gitignore
+```
+- Run the project by running `node server.js` while in the /server directory. 
+- Note any errors that come up during the process in case we need to address them.
