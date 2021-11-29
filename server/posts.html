@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset = "utf-8">
+	<title>CarNet Posts</title>
+
+	<script src ="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script>
+		function populatePosts() {
+			// Grab what element you'll be modifying. 
+			var post = document.getElementById('post');
+			post.innerHTML = "";
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = 'http://127.0.0.1:5000/api/posts';
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = post.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = post.insertRow();
+						for (k in response.data.data[x]) {
+							console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('populatePosts', error))
+		}
+	</script>
+</head>
+
+<body>
+	<!--You can format your front-end to your heart's content here, ideally 
+	it has more than just these barebones but we're focusing completely on 
+	functionality first! -->
+	<label>Posts:</label>
+	<button name = "Show Posts" onclick = "populatePosts()">Show Posts!</button>
+	<br><br><br>
+	<table name = "post" id = "post"></table>
+</body>
+
+</html>

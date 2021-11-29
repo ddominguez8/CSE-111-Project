@@ -4,7 +4,7 @@
 var express = require("express")
 var app = express()
 
-const Cars = require('./cars')
+const Cars = require('./posts')
 var cars = new Cars('./cars.sqlite')
 
 // State what port we'll be utilizing.
@@ -30,8 +30,18 @@ app.get("/", (req, res, next) => {
 });
 
 // Insert here other API endpoints.
-app.get("/api/misc", (req, res, next) => {
-	next()
+app.get("/api/posts", (req, res, next) => {
+    cars.allPosts()
+    .then((posts) => {
+        res.json({
+            "message": "success!",
+            "data": posts
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
 });
 
 // Default response for any other request
