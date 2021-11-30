@@ -4,7 +4,7 @@
 var express = require("express")
 var app = express()
 
-const Cars = require('./posts')
+const Cars = require('./cars')
 var cars = new Cars('./cars.sqlite')
 
 // State what port we'll be utilizing.
@@ -36,6 +36,34 @@ app.get("/api/posts", (req, res, next) => {
         res.json({
             "message": "success!",
             "data": posts
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/comments", (req, res, next) => {
+    cars.allComments()
+    .then((comments) => {
+        res.json({
+            "message": "success!",
+            "data": comments
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cids", (req, res, next) => {
+    cars.commentIds()
+    .then((commentIds) => {
+        res.json({
+            "message": "success!",
+            "data": commentIds
         })
     })
 	.catch((err) => {

@@ -33,6 +33,18 @@ class Cars {
 			"SELECT * FROM Posts", []
 		)
 	}
+	
+	allComments() { 
+		return this.all(
+			"SELECT * FROM Comments", []
+		)
+	}
+
+	commentIds() {
+		return this.all( 
+			"SELECT c_id FROM Comments", []
+		)
+	}
 
 };
 module.exports = Cars
