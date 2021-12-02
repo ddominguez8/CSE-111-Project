@@ -40,9 +40,23 @@ class Cars {
 		)
 	}
 
-	commentIds() {
+	postIDs() {
 		return this.all( 
-			"SELECT c_id FROM Comments", []
+			"SELECT p_post_id FROM Posts", []
+		)
+	}
+
+	insertComment(_pID, _content) {
+		return this.all(
+			"INSERT INTO Comments(c_user_id, c_reply_post_id, c_id, c_content) " + 
+			" VALUES ('anonymous', ? , 11, ?)", [_pID, _content]
+		)
+	}
+
+	insertPost(_content) {
+		return this.all(
+			"INSERT INTO Posts(p_user_id, p_content, p_post_id, p_stype) " +
+			" VALUES ('anonymous', ? , 11, 'No')", [_content]
 		)
 	}
 

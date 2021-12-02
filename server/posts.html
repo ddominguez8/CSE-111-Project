@@ -27,7 +27,7 @@
 					let thead = post.createTHead();
 					let row = thead.insertRow();
 					for (key in response.data.data[0]) {
-						console.log(key);
+						//console.log(key);
 						let th = document.createElement("th");
 						let text = document.createTextNode(key);
 						th.appendChild(text);
@@ -38,7 +38,7 @@
 					for (x=0; x<response.data.data.length; x++) {
 						let row = post.insertRow();
 						for (k in response.data.data[x]) {
-							console.log(k);
+							//console.log(k);
 							let cell = row.insertCell();
 							let text = document.createTextNode(response.data.data[x][k])
 							cell.appendChild(text);
@@ -68,7 +68,7 @@
 					let thead = comments.createTHead();
 					let row = thead.insertRow();
 					for (key in response.data.data[0]) {
-						console.log(key);
+						//console.log(key);
 						let th = document.createElement("th");
 						let text = document.createTextNode(key);
 						th.appendChild(text);
@@ -79,7 +79,7 @@
 					for (x=0; x<response.data.data.length; x++) {
 						let row = comments.insertRow();
 						for (k in response.data.data[x]) {
-							console.log(k);
+							//console.log(k);
 							let cell = row.insertCell();
 							let text = document.createTextNode(response.data.data[x][k])
 							cell.appendChild(text);
@@ -91,66 +91,64 @@
 		}
 		function insertComment() {
 			// Grab what element you'll be modifying. 
-			var cID = document.getElementById('cID').value;
-			var content = document.getElementById('content').value;
+			var pID = document.getElementById('pID').value;
+			var content = document.getElementById('cContent').value;
 
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
-			const API_URL = `http://127.0.0.1:5000/api/cInsert/${cID}-${content}`;
+			const API_URL = `http://127.0.0.1:5000/api/cInsert/${pID}-${content}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
 					// Don't do anything if there's no data.
 					if (response.data.data.length == 0) {
 						return;
 					}
-
-					// Create table displaying all the values.
-					let thead = comments.createTHead();
-					let row = thead.insertRow();
-					for (key in response.data.data[0]) {
-						console.log(key);
-						let th = document.createElement("th");
-						let text = document.createTextNode(key);
-						th.appendChild(text);
-						row.appendChild(th);
 					}
-
-					// Continue adding onto the table with the rest of values.
-					for (x=0; x<response.data.data.length; x++) {
-						let row = comments.insertRow();
-						for (k in response.data.data[x]) {
-							console.log(k);
-							let cell = row.insertCell();
-							let text = document.createTextNode(response.data.data[x][k])
-							cell.appendChild(text);
-						}
-					}
-				})
+				)
 				.catch(error =>
-					console.error('populateComments', error))
+					console.error('insertComment', error))
 		}
-		function populateCommentIds() {
-        	var selCommentIds = document.getElementById('cID');
+		function insertPost() {
+			// Grab what element you'll be modifying. 
+			var content = document.getElementById('pContent').value;
 
-         	const API_URL = 'http://127.0.0.1:5000/api/cids';
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/pInsert/${content}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('insertPost', error))
+		}
+		function populatePostIds() {
+        	var selPostIds = document.getElementById('pID');
+
+         	const API_URL = 'http://127.0.0.1:5000/api/pids';
          	axios.get(`${API_URL}`)
             	.then(response => {
 					for (x=0; x<response.data.data.length; x++) {
 					option = document.createElement('option');
-					option.value = response.data.data[x].c_id;
-					option.text = response.data.data[x].c_id;
-					selCommentIds.appendChild(option);
+					option.value = response.data.data[x].p_post_id;
+					option.text = response.data.data[x].p_post_id;
+					selPostIds.appendChild(option);
 					}
             	})
             	.catch(error =>
-               		console.error('populateCommentIds', error)
+               		console.error('populatePostIDs', error)
             )
       }
 	</script>
 </head>
 
-<body onload = "populateCommentIds()">
+<body onload = "populatePostIds()">
 	<!--You can format your front-end to your heart's content here, ideally 
 	it has more than just these barebones but we're focusing completely on 
 	functionality first! -->
@@ -159,19 +157,27 @@
 	<label>Posts:</label>
 	<button name = "Show Posts" onclick = "populatePosts()">Show Posts!</button>
 	<br><br>
+	<form> 
+		<label> Post Content: </label>
+		<input type = "text" name = "pContent" id = "pContent"> 
+	</form>
+	<label> Insert Post: </label>
+	<button name = "Insert Post" onclick = "insertPost()">Insert Post</button>
+
+	<br><br> 
 
 	<label> View Comments: </label>
 	<button name = "Show Comments" onclick = "populateComments()">Show Comments!</button>
 	
 	<br><br>
 
-	<label> Comment ID: </label>
-	<select name = "cID" id = "cID"> 
+	<label> Replying to Post ID: </label>
+	<select name = "pID" id = "pID"> 
 		<option value = ''>------- Select --------</option>
 	</select>
 	<form> 
-		<label> Content: </label>
-		<input type = "text" name = "content" id = "content"> 
+		<label> Comment Content: </label>
+		<input type = "text" name = "cContent" id = "cContent"> 
 	</form>
 
 	<label> Insert Comment: </label>

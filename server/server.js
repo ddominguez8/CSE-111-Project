@@ -58,12 +58,12 @@ app.get("/api/comments", (req, res, next) => {
     })
 });
 
-app.get("/api/cids", (req, res, next) => {
-    cars.commentIds()
-    .then((commentIds) => {
+app.get("/api/pids", (req, res, next) => {
+    cars.postIDs()
+    .then((postIDs) => {
         res.json({
             "message": "success!",
-            "data": commentIds
+            "data": postIDs
         })
     })
 	.catch((err) => {
@@ -71,6 +71,35 @@ app.get("/api/cids", (req, res, next) => {
         return;
     })
 });
+
+app.get("/api/cInsert/:pID-:content", (req, res, next) => {
+    cars.insertComment(req.params.pID, req.params.content)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice :)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pInsert/:content", (req, res, next) => {
+    cars.insertPost(req.params.content)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice x2:)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {
