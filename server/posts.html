@@ -132,7 +132,12 @@
 				)
 				.catch(error =>
 					console.error('insertPost', error))
-			populatePostIds();
+			// Add the new ID into the Post IDs drop down menu.
+			option = document.createElement('option');
+			option.value = ++pCounter;
+			option.text = pCounter;
+			var newPostID = document.getElementById('prID');
+			newPostID.appendChild(option);
 		}
 		function populatePostIds() {
         	var selPostIds = document.getElementById('prID');
