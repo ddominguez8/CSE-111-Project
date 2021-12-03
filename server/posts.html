@@ -7,6 +7,9 @@
 	<script src ="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<script>
+		var pCounter = 0;
+		var cCounter = 0;
+		var sPost = '';
 		function populatePosts() {
 			// Grab what element you'll be modifying. 
 			var post = document.getElementById('post');
@@ -33,10 +36,11 @@
 						th.appendChild(text);
 						row.appendChild(th);
 					}
-
+					pCounter = 0;
 					// Continue adding onto the table with the rest of values.
 					for (x=0; x<response.data.data.length; x++) {
 						let row = post.insertRow();
+						pCounter++;
 						for (k in response.data.data[x]) {
 							//console.log(k);
 							let cell = row.insertCell();
@@ -74,10 +78,11 @@
 						th.appendChild(text);
 						row.appendChild(th);
 					}
-
+					cCounter = 0;
 					// Continue adding onto the table with the rest of values.
 					for (x=0; x<response.data.data.length; x++) {
 						let row = comments.insertRow();
+						cCounter++;
 						for (k in response.data.data[x]) {
 							//console.log(k);
 							let cell = row.insertCell();
@@ -91,13 +96,13 @@
 		}
 		function insertComment() {
 			// Grab what element you'll be modifying. 
-			var pID = document.getElementById('pID').value;
+			var prID = document.getElementById('prID').value;
 			var content = document.getElementById('cContent').value;
 
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
-			const API_URL = `http://127.0.0.1:5000/api/cInsert/${pID}-${content}`;
+			const API_URL = `http://127.0.0.1:5000/api/cInsert/${prID}-${cCounter}-${content}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
 					// Don't do anything if there's no data.
@@ -111,12 +116,12 @@
 		}
 		function insertPost() {
 			// Grab what element you'll be modifying. 
-			var content = document.getElementById('pContent').value;
+			var content = document.getElementById('pContent').value;	
 
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
-			const API_URL = `http://127.0.0.1:5000/api/pInsert/${content}`;
+			const API_URL = `http://127.0.0.1:5000/api/pInsert/${content}-${pCounter}-${sPost}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
 					// Don't do anything if there's no data.
@@ -127,9 +132,10 @@
 				)
 				.catch(error =>
 					console.error('insertPost', error))
+			populatePostIds();
 		}
 		function populatePostIds() {
-        	var selPostIds = document.getElementById('pID');
+        	var selPostIds = document.getElementById('prID');
 
          	const API_URL = 'http://127.0.0.1:5000/api/pids';
          	axios.get(`${API_URL}`)
@@ -144,10 +150,18 @@
             	.catch(error =>
                		console.error('populatePostIDs', error)
             )
-      }
+        }
+		function onCheck() {
+			var quickCheck = document.getElementById("sPostCheck").checked;
+			if (quickCheck == true) {
+				sPost = 'Yes';
+			}
+			else {
+				sPost = 'No';
+			}
+		}
 	</script>
 </head>
-
 <body onload = "populatePostIds()">
 	<!--You can format your front-end to your heart's content here, ideally 
 	it has more than just these barebones but we're focusing completely on 
@@ -159,10 +173,12 @@
 	<br><br>
 	<form> 
 		<label> Post Content: </label>
-		<input type = "text" name = "pContent" id = "pContent"> 
+		<input type = "text" name = "pContent" id = "pContent" > 
+		<label> Is this a selling post? </label>
+		<input type = "checkbox" id ="sPostCheck" >
 	</form>
 	<label> Insert Post: </label>
-	<button name = "Insert Post" onclick = "insertPost()">Insert Post</button>
+	<button name = "Insert Post" onclick = "onCheck(); insertPost();">Insert Post</button>
 
 	<br><br> 
 
@@ -172,7 +188,7 @@
 	<br><br>
 
 	<label> Replying to Post ID: </label>
-	<select name = "pID" id = "pID"> 
+	<select name = "prID" id = "prID"> 
 		<option value = ''>------- Select --------</option>
 	</select>
 	<form> 

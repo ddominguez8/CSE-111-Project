@@ -72,8 +72,8 @@ app.get("/api/pids", (req, res, next) => {
     })
 });
 
-app.get("/api/cInsert/:pID-:content", (req, res, next) => {
-    cars.insertComment(req.params.pID, req.params.content)
+app.get("/api/cInsert/:prID-:cCounter-:content", (req, res, next) => {
+    cars.insertComment(req.params.prID, req.params.cCounter,req.params.content)
     .then(() => {
         res.json({
             "message": "success!",
@@ -86,8 +86,8 @@ app.get("/api/cInsert/:pID-:content", (req, res, next) => {
     })
 });
 
-app.get("/api/pInsert/:content", (req, res, next) => {
-    cars.insertPost(req.params.content)
+app.get("/api/pInsert/:content-:pCounter-:sPost", (req, res, next) => {
+    cars.insertPost(req.params.content, req.params.pCounter, req.params.sPost)
     .then(() => {
         res.json({
             "message": "success!",
