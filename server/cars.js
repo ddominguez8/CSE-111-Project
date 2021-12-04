@@ -29,15 +29,21 @@ class Cars {
 		})
 	}
 
-	insertUser() {
+	insertUser(_email, _password) {
 		return this.all(
-			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email.com', 'yo')", []
+			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user12', ? , ? )", [_email, _password]
 		)
 	}
 	
 	allUsers() {
 		return this.all(
-			"SELECT * FROM Users", []
+			"SELECT u_user_id as User_ID, u_email as User_Email, u_password as Passwords FROM Users", []
+		)
+	}
+
+	userCheck(_userID) {
+		return this.all(
+			"SELECT u_user_id FROM Users WHERE u_user_id = ?", [_userID]
 		)
 	}
 

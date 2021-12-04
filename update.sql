@@ -22,6 +22,9 @@ INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email
 
 DELETE FROM Users WHERE u_email = 'email@email.com'
 
+SELECT u_user_id FROM Users WHERE u_user_id = 'admin'
+SELECT u_user_id as User_ID, u_email as User_Email, u_password as Passwords FROM Users
+
 -- Case: Updating commenters count, when comment is deleted
 --10-- keep count if youre removing some queries then remove
 --that set count

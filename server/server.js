@@ -31,7 +31,7 @@ app.get("/", (req, res, next) => {
 
 // Insert here other API endpoints.
 app.get("/api/uInsert/:email-:password", (req, res, next) => {
-    cars.insertUser()
+    cars.insertUser(req.params.email, req.params.password)
     .then(() => {
         res.json({
             "message": "success!",
@@ -55,6 +55,20 @@ app.get("/api/allUsers", (req, res, next) => {
         .catch((err) => {
             res.status(400).json({"error": err.message });
             return;
+    })
+});
+
+app.get("/api/userQuery/:userID", (req, res, next) => {
+    cars.userCheck(req.params.userID)
+    .then((user) => {
+        res.json({
+            "message": "success!",
+            "data": user
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
     })
 });
 
