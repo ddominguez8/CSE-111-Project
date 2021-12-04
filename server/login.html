@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset = "utf-8">
+	<title> CarNet </title>
+
+	<script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script>
+		function insertUser() {
+			// Grab what element you'll be using to insert. 
+			var email = document.getElementById('Remail').value;
+			var password = document.getElementById('Rpassword').value;
+			var passwordConfirm = document.getElementById('passwordC').value;
+			var x = document.getElementById('error');
+			if (password != passwordConfirm) {
+				x.innerHTML = "Error, passwords provided don't match";
+				return;
+			}
+			if (password = '') {
+				x.innerHTML = "Error, password cannot be null!";
+				return;
+			}
+			x.innerHTML = "Successfully added!";
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uInsert/${email}-${password}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('insertUser', error))
+		}
+		function showUsers() {
+			// Grab what element you'll be modifying. 
+			var user = document.getElementById('users');
+			user.innerHTML = "";
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = 'http://127.0.0.1:5000/api/allUsers';
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = user.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = user.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('showUsers', error))
+		}
+	</script>
+</head>
+
+<body>
+	<h1> Login for Carnet </h1>
+	<form> 
+		<label for = 'Lemail'> Email: </label> <br>
+		<input type = 'text' id = 'Lemail' name = 'Lemail'> <br>
+		<label for = 'Lpassword'> Password: </label> <br>
+		<input type = 'text' id = 'Lpassword' name = 'Lpassword'> <br> <br>
+	</form>
+	<button name = 'Login' onclick = ';'>Login</button>
+
+	<p> Don't have an account? Register with one below! </p>
+	<form> 
+		<label for = 'Remail'> Email: </label> <br>
+		<input type = 'text' id = 'Remail' name = 'Remail'> <br>
+		<label for = 'Rpassword'> Password: </label> <br>
+		<input type = 'text' id = 'Rpassword' name = 'Rpassword'> <br> 
+		<label for = 'passwordC'> Confirm Password: </label> <br>
+		<input type = 'text' id = 'passwordC' name = 'passwordC'> <br> <br>
+	</form>
+	<button name = 'Register' onclick = 'insertUser();'>Register</button>
+	<button name = 'Show Users' onclick = 'showUsers()'>Show Users!</button>
+	<p name = 'error' id = 'error'> </p>
+	<br><br>
+	<table name = "users" id = "users"></table>
+</body>
+
+</html>

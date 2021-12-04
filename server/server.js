@@ -30,8 +30,32 @@ app.get("/", (req, res, next) => {
 });
 
 // Insert here other API endpoints.
-app.get("/api/misc", (req, res, next) => {
-	next()
+app.get("/api/uInsert/:email-:password", (req, res, next) => {
+    cars.insertUser()
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice :)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/allUsers", (req, res, next) => {
+    cars.allUsers()
+    .then((users) => {
+        res.json({
+            "message": "success!",
+            "data": users
+        })
+    })
+        .catch((err) => {
+            res.status(400).json({"error": err.message });
+            return;
+    })
 });
 
 // Default response for any other request

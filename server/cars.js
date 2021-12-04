@@ -13,5 +13,33 @@ class Cars {
 			}
 		})
 	}
+
+
+	all(sql, params = []) {
+		return new Promise((resolve, reject) => {
+			this.db.all(sql, params, (err, rows) => {
+				if (err) {
+					console.log('Error running sql: ' + sql)
+					console.log(err)
+					reject(err)
+				} else {
+					resolve(rows)
+				}
+			})
+		})
+	}
+
+	insertUser() {
+		return this.all(
+			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email.com', 'yo')", []
+		)
+	}
+	
+	allUsers() {
+		return this.all(
+			"SELECT * FROM Users", []
+		)
+	}
+
 };
 module.exports = Cars

@@ -18,6 +18,9 @@ UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user7';
 
+INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email.com', 'yo');
+
+DELETE FROM Users WHERE u_email = 'email@email.com'
 
 -- Case: Updating commenters count, when comment is deleted
 --10-- keep count if youre removing some queries then remove
