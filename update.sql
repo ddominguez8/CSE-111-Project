@@ -31,7 +31,7 @@ SELECT u_user_id as User_ID, u_email as User_Email, u_password as Passwords FROM
 -- Case: Updating commenters count, when comment is deleted
 --10-- keep count if youre removing some queries then remove
 --that set count
-UPDATE Commenters
+UPDATE Commenters	
 SET cm_count = cm_count - 1
 WHERE cm_user_id = 'user2';
 

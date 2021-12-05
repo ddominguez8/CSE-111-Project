@@ -13,7 +13,9 @@
 			var email = document.getElementById('Remail').value;
 			var password = document.getElementById('Rpassword').value;
 			var passwordConfirm = document.getElementById('passwordC').value;
+			var userID = document.getElementById('RuserID').value;
 			var x = document.getElementById('error');
+
 			// Confirm password for registration
 			if (password != passwordConfirm) {
 				x.innerHTML = "Error, passwords provided don't match";
@@ -28,7 +30,7 @@
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
-			const API_URL = `http://127.0.0.1:5000/api/uInsert/${email}-${password}`;
+			const API_URL = `http://127.0.0.1:5000/api/uInsert/${userID}-${email}-${password}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
 					// Don't do anything if there's no data.

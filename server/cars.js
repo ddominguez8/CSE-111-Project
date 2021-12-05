@@ -29,9 +29,9 @@ class Cars {
 		})
 	}
 
-	insertUser(_email, _password) {
+	insertUser(_userID, _email, _password) {
 		return this.all(
-			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user12', ? , ? )", [_email, _password]
+			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES (? , ? , ? )", [_userID, _email, _password]
 		)
 	}
 	
