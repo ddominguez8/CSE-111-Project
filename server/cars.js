@@ -53,5 +53,11 @@ class Cars {
 		)
 	}
 
+	updateUser(_newUserID, _oldUserID) {
+		return this.all(
+			"UPDATE Users SET u_user_id = ? WHERE u_user_id = ?", [_newUserID, _oldUserID]
+		)
+	}
+
 };
 module.exports = Cars

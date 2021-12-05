@@ -87,6 +87,7 @@
 			// Grab what element you'll be using to insert. 
 			var x = document.getElementById('error');
 			var userID = document.getElementById('RuserID').value;
+
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
@@ -105,13 +106,40 @@
 					}
 				)
 				.catch(error =>
-					console.error('insertUser', error))
+					console.error('checkUser', error))
+		}
+
+		function checkUserUpdate() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var userID = document.getElementById('UpdateUserID').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/userQuery/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						x.innerHTML = 'User ID is available!';
+						return;
+					}
+					if (response.data.data.length != 0) {
+						x.innerHTML = 'User ID is not available, please choose another one!';
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('checkUserUpdate', error))
 		}
 
 		function userLogin() {
 			// Grab what element you'll be using to insert. 
 			var email = document.getElementById('Lemail').value;
 			var password = document.getElementById('Lpassword').value;
+			// x is what we'll use to display any errors/successes.
 			var x = document.getElementById('error');
 			var y = document.getElementById('userLogin');
 
@@ -120,7 +148,7 @@
 				x.innerHTML = "Error, either email or password cannot be null!";
 				return;
 			}
-			// x.innerHTML = "Succesfully Added!";
+
 			// Declare the API you will be calling from, you can always 
 			// see the output of what you'll be pulling to make sure the 
 			// data is right before you format it onto the page.
@@ -136,6 +164,7 @@
 					//y.innerHTML = response.data.data[0]['u_user_id'];
 					console.log(loginUserID);
 					y.innerHTML = loginUserID;
+					x.innerHTML = "Succesfully logged in!";
 					}
 				)
 				.catch(error =>
@@ -145,6 +174,29 @@
 			loginUserID = 'N/A';
 			var y = document.getElementById('userLogin');
 			y.innerHTML = loginUserID;
+		}
+		function updateUserIDfunc() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var newUserID = document.getElementById('UpdateUserID').value;
+			var y = document.getElementById('userLogin');
+
+			if (loginUserID == 'N/A') {
+				x.innerHTML = 'Please login first!';
+				return;
+			}
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uUpdate/${newUserID}-${loginUserID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					x.innerHTML = 'Successfully changed. Please login again to see changes.';
+					}
+				)
+				.catch(error =>
+					console.error('updateUserIDfunc', error))
 		}
 	</script>
 </head>
@@ -160,8 +212,8 @@
 	</form>
 	<button name = 'Login' onclick = 'userLogin();'>Login</button>
 
-	<p> Don't have an account? Register with one below! </p>
-	<form> 
+	<p id = 'RAccount'> Don't have an account? Register with one below! </p>
+	<form id = 'RForm'> 
 		<label for ='RuserID'>User ID (check with Check User ID button below):</label> <br>
 		<input type = 'text' id = 'RuserID' name = 'RuserID'> <br>
 		<label for = 'Remail'> Email: </label> <br>
@@ -171,9 +223,17 @@
 		<label for = 'passwordC'> Confirm Password: </label> <br>
 		<input type = 'text' id = 'passwordC' name = 'passwordC'> <br> <br>
 	</form>
-	<button name = 'CheckUserID' onclick = "checkUser();">Check User ID</button> <br> <br>
-	<button name = 'Register' onclick = 'insertUser();'>Register</button>
-	<button name = 'Show Users' onclick = 'showUsers();'>Show Users!</button>
+	<button id = 'CheckUserID' onclick = "checkUser();">Check User ID</button> <br> <br>
+	<button id = 'Register' onclick = 'insertUser();'>Register</button>
+	<button id = 'ShowUsers' onclick = 'showUsers();'>Show Users!</button>
+
+	<h2> Update User ID </h2>
+	<form id = 'UpdateUserIDForm'> 
+		<label for ='UpdateUserID'>Enter your new user ID here:</label> <br>
+		<input type = 'text' id = 'UpdateUserID'> <br>
+	</form>
+	<button id = 'CheckUserID2' onclick = 'checkUserUpdate();'>Check User ID </button> 
+	<button id = 'UpdateUserIDButton' onclick = 'updateUserIDfunc();'> Update User ID</button>
 	<p name = 'error' id = 'error'> </p>
 	<br><br>
 	<table name = "users" id = "users"></table>

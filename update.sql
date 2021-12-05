@@ -38,11 +38,11 @@ WHERE cm_user_id = 'user2';
 --11
 -- Update user_id. 
 UPDATE Users
-SET u_user_id = 'new_username'
-WHERE 'new_username' NOT IN 
+SET u_user_id = 'admin'
+WHERE 'admin' NOT IN 
 	(SELECT u_user_id
 	FROM Users)
-AND u_email = 'user1@protonmail.com';
+AND u_user_id = 'admin2';
 
 --12 update user id for other tables
 UPDATE Posts
