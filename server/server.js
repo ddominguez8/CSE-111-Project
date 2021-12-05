@@ -9,6 +9,7 @@ var cars = new Cars('./cars.sqlite')
 
 // State what port we'll be utilizing.
 var HTTP_PORT = 5000
+var userID = 'n/a'
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,6 +38,21 @@ app.get("/api/uInsert/:email-:password", (req, res, next) => {
             "message": "success!",
             "data": "nice :)"
         })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/uLogin/:email-:password", (req, res, next) => {
+    cars.userLogin(req.params.email, req.params.password)
+    .then((rUserID) => {
+        res.json({
+            "message": "user found!",
+            "data": rUserID
+        })
+        userID = rUserID[0]['u_user_id'];
     })
 	.catch((err) => {
         res.status(400).json({"error": err.message });

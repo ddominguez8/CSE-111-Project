@@ -47,5 +47,11 @@ class Cars {
 		)
 	}
 
+	userLogin(_email, _password) {
+		return this.all(
+			"SELECT u_user_id FROM Users WHERE u_email = ? AND u_password = ?", [_email, _password]
+		)
+	}
+
 };
 module.exports = Cars

@@ -18,6 +18,9 @@ UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user7';
 
+.headers off
+SELECT u_user_id FROM Users WHERE u_email = 'email@protonmail.com' AND u_password = 'password';
+
 INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email.com', 'yo');
 
 DELETE FROM Users WHERE u_email = 'email@email.com'

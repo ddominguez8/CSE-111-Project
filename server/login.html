@@ -7,6 +7,7 @@
 	<script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<script>
+		var loginUserID = '';
 		function insertUser() {
 			// Grab what element you'll be using to insert. 
 			var email = document.getElementById('Remail').value;
@@ -104,18 +105,58 @@
 				.catch(error =>
 					console.error('insertUser', error))
 		}
+
+		function userLogin() {
+			// Grab what element you'll be using to insert. 
+			var email = document.getElementById('Lemail').value;
+			var password = document.getElementById('Lpassword').value;
+			var x = document.getElementById('error');
+			var y = document.getElementById('userLogin');
+
+			// Confirm email or password isn't null
+			if (email == '' || password == '') {
+				x.innerHTML = "Error, either email or password cannot be null!";
+				return;
+			}
+			// x.innerHTML = "Succesfully Added!";
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uLogin/${email}-${password}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						x.innerHTML = "Error, no user found!";
+						return;
+					}
+					loginUserID = response.data.data[0]['u_user_id'];
+					//y.innerHTML = response.data.data[0]['u_user_id'];
+					console.log(loginUserID);
+					y.innerHTML = loginUserID;
+					}
+				)
+				.catch(error =>
+					console.error('userLogin', error))
+		}
+		function userInit() {
+			loginUserID = 'N/A';
+			var y = document.getElementById('userLogin');
+			y.innerHTML = loginUserID;
+		}
 	</script>
 </head>
 
-<body>
+<body onload="userInit();">
 	<h1> Login for Carnet </h1>
+	<p>Currently Logged In As: <span id = 'userLogin' name = 'userLogin'> </span> </p>
 	<form> 
 		<label for = 'Lemail'> Email: </label> <br>
 		<input type = 'text' id = 'Lemail' name = 'Lemail'> <br>
 		<label for = 'Lpassword'> Password: </label> <br>
 		<input type = 'text' id = 'Lpassword' name = 'Lpassword'> <br> <br>
 	</form>
-	<button name = 'Login' onclick = ';'>Login</button>
+	<button name = 'Login' onclick = 'userLogin();'>Login</button>
 
 	<p> Don't have an account? Register with one below! </p>
 	<form> 
