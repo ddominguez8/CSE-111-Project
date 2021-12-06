@@ -7,8 +7,6 @@ CREATE TABLE Users (
     u_password CHAR(50) NOT NULL
 );
 
-SELECT c_id
-FROM Comments
 --Post content, pictures later
 CREATE TABLE Posts (
     p_user_id CHAR(50) NOT NULL,
@@ -68,10 +66,3 @@ CREATE TABLE postCommenters(
     cm_id INTEGER NOT NULL,
     pc_user_id CHAR(50) NOT NULL
 );
-
-
-
-
-
-
-

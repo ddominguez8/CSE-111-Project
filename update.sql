@@ -50,16 +50,7 @@ UPDATE Commenters
 SET cm_user_id = 'new_username'
 WHERE cm_user_id = 'user1';
 
-SELECT COUNT(p_user_id) as count FROM Posts
 
-DELETE FROM Posts 
-WHERE p_post_id > 10;
-
-DELETE FROM Comments
-WHERE c_id > 10;
-
-DELETE FROM Posts 
-WHERE p_content = 'carnet'
 -- Case: Find user id along with their comments on a certain post
 -- and total comment count.
 -- Utilizes 3 tables as requested.
