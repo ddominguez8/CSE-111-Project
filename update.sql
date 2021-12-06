@@ -18,31 +18,22 @@ UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user7';
 
-.headers off
-SELECT u_user_id FROM Users WHERE u_email = 'email@protonmail.com' AND u_password = 'password';
-
-INSERT INTO Users(u_user_id, u_email, u_password) VALUES ('user10', 'email@email.com', 'yo');
-
-DELETE FROM Users WHERE u_email = 'email@email.com'
-
-SELECT u_user_id FROM Users WHERE u_user_id = 'admin'
-SELECT u_user_id as User_ID, u_email as User_Email, u_password as Passwords FROM Users
 
 -- Case: Updating commenters count, when comment is deleted
 --10-- keep count if youre removing some queries then remove
 --that set count
-UPDATE Commenters	
+UPDATE Commenters
 SET cm_count = cm_count - 1
 WHERE cm_user_id = 'user2';
 
 --11
 -- Update user_id. 
 UPDATE Users
-SET u_user_id = 'admin'
-WHERE 'admin' NOT IN 
+SET u_user_id = 'new_username'
+WHERE 'new_username' NOT IN 
 	(SELECT u_user_id
 	FROM Users)
-AND u_user_id = 'admin2';
+AND u_email = 'user1@protonmail.com';
 
 --12 update user id for other tables
 UPDATE Posts

@@ -66,10 +66,3 @@ CREATE TABLE postCommenters(
     cm_id INTEGER NOT NULL,
     pc_user_id CHAR(50) NOT NULL
 );
-
-
-
-
-
-
-
