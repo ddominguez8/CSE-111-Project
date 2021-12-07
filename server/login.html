@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset = "utf-8">
+	<title> CarNet </title>
+
+	<script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<script>
+		var loginUserID = '';
+		function insertUser() {
+			// Grab what element you'll be using to insert. 
+			var email = document.getElementById('Remail').value;
+			var password = document.getElementById('Rpassword').value;
+			var passwordConfirm = document.getElementById('passwordC').value;
+			var userID = document.getElementById('RuserID').value;
+			var x = document.getElementById('error');
+
+			// Confirm password for registration
+			if (password != passwordConfirm) {
+				x.innerHTML = "Error, passwords provided don't match";
+				return;
+			}
+			// Confirm password isn't null
+			if (email == '' || password == '') {
+				x.innerHTML = "Error, either email or password cannot be null!";
+				return;
+			}
+			x.innerHTML = "Succesfully Added!";
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uInsert/${userID}-${email}-${password}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('insertUser', error))
+		}
+		function showUsers() {
+			// Grab what element you'll be modifying. 
+			var user = document.getElementById('users');
+			user.innerHTML = "";
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = 'http://127.0.0.1:5000/api/allUsers';
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = user.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = user.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('showUsers', error))
+		}
+
+		function checkUser() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var userID = document.getElementById('RuserID').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/userQuery/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						x.innerHTML = 'User ID is available!';
+						return;
+					}
+					if (response.data.data.length != 0) {
+						x.innerHTML = 'User ID is not available, please choose another one!';
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('checkUser', error))
+		}
+
+		function checkUserUpdate() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var userID = document.getElementById('UpdateUserID').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/userQuery/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						x.innerHTML = 'User ID is available!';
+						return;
+					}
+					if (response.data.data.length != 0) {
+						x.innerHTML = 'User ID is not available, please choose another one!';
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('checkUserUpdate', error))
+		}
+
+		function userLogin() {
+			// Grab what element you'll be using to insert. 
+			var email = document.getElementById('Lemail').value;
+			var password = document.getElementById('Lpassword').value;
+			// x is what we'll use to display any errors/successes.
+			var x = document.getElementById('error');
+			var y = document.getElementById('userLogin');
+
+			// Confirm email or password isn't null
+			if (email == '' || password == '') {
+				x.innerHTML = "Error, either email or password cannot be null!";
+				return;
+			}
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uLogin/${email}-${password}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						x.innerHTML = "Error, no user found!";
+						return;
+					}
+					loginUserID = response.data.data[0]['u_user_id'];
+					//y.innerHTML = response.data.data[0]['u_user_id'];
+					console.log(loginUserID);
+					y.innerHTML = loginUserID;
+					x.innerHTML = "Succesfully logged in!";
+					}
+				)
+				.catch(error =>
+					console.error('userLogin', error))
+		}
+		function userInit() {
+			loginUserID = 'N/A';
+			var y = document.getElementById('userLogin');
+			y.innerHTML = loginUserID;
+		}
+		function updateUserIDfunc() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var newUserID = document.getElementById('UpdateUserID').value;
+			var y = document.getElementById('userLogin');
+
+			if (loginUserID == 'N/A') {
+				x.innerHTML = 'Please login first!';
+				return;
+			}
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/uUpdate/${newUserID}-${loginUserID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					x.innerHTML = 'Successfully changed. Please login again to see changes.';
+					}
+				)
+				.catch(error =>
+					console.error('updateUserIDfunc', error))
+		}
+
+		function delUserID() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var userID = document.getElementById('DeleteUserID').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/delUser/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					x.innerHTML = 'Successfully deleted.';
+					}
+				)
+				.catch(error =>
+					console.error('delUserID', error))
+		}
+	</script>
+</head>
+
+<body onload="userInit();">
+	<h1> Login for Carnet </h1>
+	<p>Currently Logged In As: <span id = 'userLogin' name = 'userLogin'> </span> </p>
+	<form> 
+		<label for = 'Lemail'> Email: </label> <br>
+		<input type = 'text' id = 'Lemail' name = 'Lemail'> <br>
+		<label for = 'Lpassword'> Password: </label> <br>
+		<input type = 'text' id = 'Lpassword' name = 'Lpassword'> <br> <br>
+	</form>
+	<button name = 'Login' onclick = 'userLogin();'>Login</button>
+
+	<p id = 'RAccount'> Don't have an account? Register with one below! </p>
+	<form id = 'RForm'> 
+		<label for ='RuserID'>User ID (check with Check User ID button below):</label> <br>
+		<input type = 'text' id = 'RuserID' name = 'RuserID'> <br>
+		<label for = 'Remail'> Email: </label> <br>
+		<input type = 'text' id = 'Remail' name = 'Remail'> <br>
+		<label for = 'Rpassword'> Password: </label> <br>
+		<input type = 'text' id = 'Rpassword' name = 'Rpassword'> <br> 
+		<label for = 'passwordC'> Confirm Password: </label> <br>
+		<input type = 'text' id = 'passwordC' name = 'passwordC'> <br> <br>
+	</form>
+	<button id = 'CheckUserID' onclick = "checkUser();">Check User ID</button> <br> <br>
+	<button id = 'Register' onclick = 'insertUser();'>Register</button>
+	<button id = 'ShowUsers' onclick = 'showUsers();'>Show Users!</button>
+
+	<h2> Update User ID </h2>
+	<form id = 'UpdateUserIDForm'> 
+		<label for ='UpdateUserID'>Enter your new user ID here:</label> <br>
+		<input type = 'text' id = 'UpdateUserID'> <br>
+	</form>
+	<button id = 'CheckUserID2' onclick = 'checkUserUpdate();'>Check User ID </button> 
+	<button id = 'UpdateUserIDButton' onclick = 'updateUserIDfunc();'> Update User ID</button>
+
+	<h2> Delete User ID </h2>
+	<form> 
+		<label for ='DeleteUserID'>Enter the user ID you'd like to delete here:</label> <br>
+		<input type = 'text' id = 'DeleteUserID'> <br>
+	</form>
+	<button onclick = 'delUserID();'>Delete</button> 
+
+	<p name = 'error' id = 'error'> </p>
+	<br><br>
+	<table name = "users" id = "users"></table>
+</body>
+
+</html>

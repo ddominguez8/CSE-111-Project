@@ -9,6 +9,8 @@ var cars = new Cars('./cars.sqlite')
 
 // State what port we'll be utilizing.
 var HTTP_PORT = 5000
+var userID = 'n/a'
+var userIDJSON = {key: 'nada'};
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,6 +38,90 @@ app.get("/api/posts", (req, res, next) => {
         res.json({
             "message": "success!",
             "data": posts
+        })
+    })
+});
+
+app.get("/api/uInsert/:userID-:email-:password", (req, res, next) => {
+    cars.insertUser(req.params.userID, req.params.email, req.params.password)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice :)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/uLogin/:email-:password", (req, res, next) => {
+    cars.userLogin(req.params.email, req.params.password)
+    .then((rUserID) => {
+        res.json({
+            "message": "user found!",
+            "data": rUserID
+        })
+        // We retrieve our User ID from login so that we can use it later from here!
+        // So now we can use it in Posts to send a user id 
+        userIDJSON = rUserID;
+        userID = rUserID[0]['u_user_id'];
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/allUsers", (req, res, next) => {
+    cars.allUsers()
+    .then((users) => {
+        res.json({
+            "message": "success!",
+            "data": users
+        })
+    })
+        .catch((err) => {
+            res.status(400).json({"error": err.message });
+            return;
+    })
+});
+
+app.get("/api/userQuery/:userID", (req, res, next) => {
+    cars.userCheck(req.params.userID)
+    .then((user) => {
+        res.json({
+            "message": "success!",
+            "data": user
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/delUser/:userID", (req, res, next) => {
+    cars.delUser(req.params.userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "deleted."
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/uUpdate/:newUserID-:loginUserID", (req, res, next) => {
+    cars.updateUser(req.params.newUserID, userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "yo"
         })
     })
 	.catch((err) => {
