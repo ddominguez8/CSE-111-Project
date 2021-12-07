@@ -92,6 +92,20 @@ app.get("/api/userQuery/:userID", (req, res, next) => {
     })
 });
 
+app.get("/api/delUser/:userID", (req, res, next) => {
+    cars.delUser(req.params.userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "deleted."
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
 app.get("/api/uUpdate/:newUserID-:loginUserID", (req, res, next) => {
     cars.updateUser(req.params.newUserID, userID)
     .then(() => {

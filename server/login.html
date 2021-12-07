@@ -198,6 +198,24 @@
 				.catch(error =>
 					console.error('updateUserIDfunc', error))
 		}
+
+		function delUserID() {
+			// Grab what element you'll be using to insert. 
+			var x = document.getElementById('error');
+			var userID = document.getElementById('DeleteUserID').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/delUser/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					x.innerHTML = 'Successfully deleted.';
+					}
+				)
+				.catch(error =>
+					console.error('delUserID', error))
+		}
 	</script>
 </head>
 
@@ -234,6 +252,14 @@
 	</form>
 	<button id = 'CheckUserID2' onclick = 'checkUserUpdate();'>Check User ID </button> 
 	<button id = 'UpdateUserIDButton' onclick = 'updateUserIDfunc();'> Update User ID</button>
+
+	<h2> Delete User ID </h2>
+	<form> 
+		<label for ='DeleteUserID'>Enter the user ID you'd like to delete here:</label> <br>
+		<input type = 'text' id = 'DeleteUserID'> <br>
+	</form>
+	<button onclick = 'delUserID();'>Delete</button> 
+
 	<p name = 'error' id = 'error'> </p>
 	<br><br>
 	<table name = "users" id = "users"></table>

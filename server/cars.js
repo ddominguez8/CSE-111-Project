@@ -59,5 +59,11 @@ class Cars {
 		)
 	}
 
+	delUser(_UserID) {
+		return this.all(
+			"DELETE FROM Users WHERE u_user_id = ?", [_UserID]
+		)
+	}
+
 };
 module.exports = Cars
