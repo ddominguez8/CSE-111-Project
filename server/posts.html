@@ -165,6 +165,309 @@
 				sPost = 'No';
 			}
 		}
+		function editPost() {
+			// Grab what element you'll be modifying. 
+			var newContent = document.getElementById('editPostText').value;
+			var postID = document.getElementById('postIDEdit').value;
+			var x = document.getElementById('error');	
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/pEdit/${newContent}-${postID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					x.innerHTML = "Successfully changed.";
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+					}
+				)
+				.catch(error =>
+					console.error('editPost', error))
+			// Add the new ID into the Post IDs drop down menu.
+
+		}
+
+		function postIDQueryInfo() {
+			// Grab what element you'll be modifying. 
+			var postID = document.getElementById('postIDQuery').value;
+			var post = document.getElementById('post');
+			post.innerHTML = "";
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/pQuery/${postID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = post.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = post.insertRow();
+
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('postIDQueryInfo', error))
+		}
+
+		function editPostUserID() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('pUserIDEditOld').value;
+			var newUserID = document.getElementById('pUserIDEditNew').value;
+			console.log(userID);
+			console.log(newUserID);
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/pEditUser/${userID}-${newUserID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('editPostUserID', error))
+		}
+
+		function editCommentUserID() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('cUserIDEditOld').value;
+			var newUserID = document.getElementById('cUserIDEditNew').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cEditUser/${userID}-${newUserID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('editCommentUserID', error))
+		}
+
+		function editCommenterUserID() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('cmUserIDEditOld').value;
+			var newUserID = document.getElementById('cmUserIDEditNew').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cmEditUser/${userID}-${newUserID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('editCommenterUserID', error))
+		}
+
+		function increaseCommenters() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('cmUserCountIORD').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cmInc/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('increaseCommenters', error))
+		}
+
+		function decreaseCommenters() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('cmUserCountIORD').value;
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cmDec/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('decreaseCommenters', error))
+		}
+
+		function delPostID() {
+			// Grab what element you'll be modifying. 
+			var postID = document.getElementById('dPostID').value;
+
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/dPost/${postID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('delPostID', error))
+		}
+
+		function delPostUser() {
+			// Grab what element you'll be modifying. 
+			var userID = document.getElementById('dPostUser').value;
+
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/dPostUser/${userID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('delPostUser', error))
+		}
+
+		function cleanupPost() {
+			// Grab what element you'll be modifying. 
+
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cleanupPost/`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('cleanupPost', error))
+		}
+
+		function cleanupCommenters() {
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/cleanupCommenters`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('cleanupPost', error))
+		}
+
+		function delCommentID() {
+			// Grab what element you'll be modifying. 
+			var commentID = document.getElementById('dCommentID').value;
+
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = `http://127.0.0.1:5000/api/dComment/${commentID}`;
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+				})
+				.catch(error =>
+					console.error('delCommentID', error))
+		}
+
+		function populateCommenters() {
+			// Grab what element you'll be modifying. 
+			var post = document.getElementById('comments');
+			post.innerHTML = "";
+
+			// Declare the API you will be calling from, you can always 
+			// see the output of what you'll be pulling to make sure the 
+			// data is right before you format it onto the page.
+			const API_URL = 'http://127.0.0.1:5000/api/commenters';
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = comments.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = comments.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('populatePosts', error))
+		}
 	</script>
 </head>
 <body onload = "populatePostIds()">
@@ -172,7 +475,7 @@
 	it has more than just these barebones but we're focusing completely on 
 	functionality first! -->
 	<h1> Hi and welcome to CarNet! </h1>
-
+	<h1> Posts Section</h1>
 	<label>Posts:</label>
 	<button name = "Show Posts" onclick = "populatePosts()">Show Posts!</button>
 	<br><br>
@@ -184,9 +487,45 @@
 	</form>
 	<label> Insert Post: </label>
 	<button name = "Insert Post" onclick = "onCheck(); insertPost();">Insert Post</button>
+	<!-- Edit Post Field -->
+	<br>
+	<form> 
+		<h3> Edit Post </h3>
+		<label> Post ID: </label>
+		<input type = 'text' id = 'postIDEdit'> 
+		<label> New Content: </label>
+		<input type = 'text' id = 'editPostText'>
+	</form>
+	<button name = "Edit Post" onclick = "editPost();">Confirm</button>
 
-	<br><br> 
+	<!-- Edit Post User ID Field -->
+	<form> 
+		<h3> Update Post User ID </h3>
+		<label> User ID you would like to change: </label>
+		<input type = 'text' id = 'pUserIDEditOld'> <br>
+		<label> New User ID you would like to replace it with: </label>
+		<input type = 'text' id = 'pUserIDEditNew'>
+	</form>
+	<button name = "Confirm changes" onclick = "editPostUserID();">Confirm</button>
+	<br>
+	<!-- Delete Post -->
+	<form> 
+		<h3> Delete Post based on Post ID </h3>
+		<label> Post ID you would like to delete: </label>
+		<input type = 'text' id = 'dPostID'> <br>
+	</form>
+	<button name = "Confirm changes" onclick = "delPostID();">Confirm</button>
+	<!-- Delete all posts of a specific user -->
+	<form> 
+		<h3> Delete all posts based on User ID </h3>
+		<label> User ID's posts you would like to delete: </label>
+		<input type = 'text' id = 'dPostUser'> <br>
+	</form>
+	<button name = "Confirm changes" onclick = "delPostUser();">Confirm</button>
 
+	<!-- Comments -->
+	<br>
+	<h1> Comments Section </h1>
 	<label> View Comments: </label>
 	<button name = "Show Comments" onclick = "populateComments()">Show Comments!</button>
 	
@@ -200,11 +539,68 @@
 		<label> Comment Content: </label>
 		<input type = "text" name = "cContent" id = "cContent"> 
 	</form>
-
 	<label> Insert Comment: </label>
 	<button name = "Insert Comment" onclick = "insertComment()">Insert Comment</button>
+	<!-- Update Comment User ID Field -->
+	<form> 
+		<h3> Update Comment User ID </h3>
+		<label> User ID you would like to change: </label>
+		<input type = 'text' id = 'cUserIDEditOld'> <br>
+		<label> New User ID you would like to replace it with: </label>
+		<input type = 'text' id = 'cUserIDEditNew'>
+	</form>
+	<button name = "Confirm changes" onclick = "editCommentUserID();">Confirm</button>
+	<br> <br>
+	<!-- Cleanup Comments -->
+	<label> When a post is deleted, delete the associated comments here: </label>
+	<button name = "Cleanup Comments" onclick = "cleanupPost()">Confirm</button>
+	<!-- Delete Comment -->
+	<form> 
+		<h3> Delete Comment based on Comment ID </h3>
+		<label> Comment ID you would like to delete: </label>
+		<input type = 'text' id = 'dCommentID'> <br>
+	</form>
+	<button name = "Confirm changes" onclick = "delCommentID();">Confirm</button>
+	<!-- Commenters -->
+	<h1>Commenters Section </h1> 
+	<label> View Leaderboard </label>
+	<button onclick="populateCommenters();"> Show Commenters! </button>
+	<!-- Post ID Query Field -->
+	<br> <br>
+	<form> 
+		<label> See all commenters, their comment count, based on Post ID: </label>
+		<input type = 'text' id = 'postIDQuery'> 
+	</form>
+	<button name = "postIDQuery" onclick = "postIDQueryInfo();">Confirm</button>
 
+	<!-- Edit Commenter User ID Field -->
+	<form> 
+		<h3> Update Commenter User ID </h3>
+		<label> User ID you would like to change: </label>
+		<input type = 'text' id = 'cmUserIDEditOld'> <br>
+		<label> New User ID you would like to replace it with: </label>
+		<input type = 'text' id = 'cmUserIDEditNew'>
+	</form>
+	<button name = "Confirm changes" onclick = "editCommenterUserID();">Confirm</button>
+
+	<br> <br>
+	<!-- Cleanup Commenters -->
+	<label> When a commenter has a count of 0, automatically delete them with this: </label>
+	<button name = "Cleanup Post" onclick = "cleanupCommenters()">Confirm</button>
+
+	<!-- Increase Commenters Count -->
+	<h3>Commenters Increase/Decrease </h3> 
+	<label> User ID you would increase/decrease commenters count: </label>
+	<input type = 'text' id = 'cmUserCountIORD'> <br>
+	<button onclick="increaseCommenters();"> Increase Count by 1 </button>
+	<button onclick="decreaseCommenters();"> Decrease Count by 1 </button>
+	<br>
+
+
+	<!-- Post and Comments table -->
 	<br><br><br>
+	<p id = 'error'></p>
+	<br>
 	<table name = "post" id = "post"></table>
 	<br><br>
 	<table name = "comments" id = "comments"></table>
