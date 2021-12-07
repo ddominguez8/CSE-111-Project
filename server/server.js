@@ -32,6 +32,16 @@ app.get("/", (req, res, next) => {
 });
 
 // Insert here other API endpoints.
+app.get("/api/posts", (req, res, next) => {
+    cars.allPosts()
+    .then((posts) => {
+        res.json({
+            "message": "success!",
+            "data": posts
+        })
+    })
+});
+
 app.get("/api/uInsert/:userID-:email-:password", (req, res, next) => {
     cars.insertUser(req.params.userID, req.params.email, req.params.password)
     .then(() => {
@@ -119,6 +129,245 @@ app.get("/api/uUpdate/:newUserID-:loginUserID", (req, res, next) => {
         return;
     })
 });
+
+app.get("/api/comments", (req, res, next) => {
+    cars.allComments()
+    .then((comments) => {
+        res.json({
+            "message": "success!",
+            "data": comments
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pids", (req, res, next) => {
+    cars.postIDs()
+    .then((postIDs) => {
+        res.json({
+            "message": "success!",
+            "data": postIDs
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cInsert/:prID-:cCounter-:content", (req, res, next) => {
+    cars.insertComment(req.params.prID, req.params.cCounter,req.params.content)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice :)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pInsert/:content-:pCounter-:sPost", (req, res, next) => {
+    cars.insertPost(req.params.content, req.params.pCounter, req.params.sPost)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice x2:)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pEdit/:newContent-:postID", (req, res, next) => {
+    cars.editPost(req.params.newContent, req.params.postID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice x2:)"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pQuery/:postID", (req, res, next) => {
+    cars.postIDQueryInfo(req.params.postID)
+    .then((queryInfo) => {
+        res.json({
+            "message": "success!",
+            "data": queryInfo
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/pEditUser/:userID-:newUserID", (req, res, next) => {
+    cars.editPostUserID(req.params.userID, req.params.newUserID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cEditUser/:userID-:newUserID", (req, res, next) => {
+    cars.editCommentUserID(req.params.userID, req.params.newUserID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cmEditUser/:userID-:newUserID", (req, res, next) => {
+    cars.editCommenterUserID(req.params.userID, req.params.newUserID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cmInc/:userID", (req, res, next) => {
+    cars.incCommenterUserID(req.params.userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cmDec/:userID", (req, res, next) => {
+    cars.decCommenterUserID(req.params.userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/dPost/:postID", (req, res, next) => {
+    cars.delPostID(req.params.postID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/dPostUser/:userID", (req, res, next) => {
+    cars.delPostUser(req.params.userID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/dComment/:commentID", (req, res, next) => {
+    cars.delCommentID(req.params.commentID)
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "nice"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/commenters", (req, res, next) => {
+    cars.allCommenters()
+    .then((commenters) => {
+        res.json({
+            "message": "success!",
+            "data": commenters
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cleanupPost", (req, res, next) => {
+    cars.cleanupPost()
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "cleaned up"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/cleanupCommenters", (req, res, next) => {
+    cars.cleanupCommenters()
+    .then(() => {
+        res.json({
+            "message": "success!",
+            "data": "cleaned up"
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
 
 // Default response for any other request
 app.use(function (req, res) {
