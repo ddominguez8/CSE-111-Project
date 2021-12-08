@@ -492,6 +492,45 @@
 			
 		}
 
+		function sellingPostRelation() {
+			var featureID = document.getElementById('post');
+			post.innerHTML = '';
+			
+         	const API_URL = 'http://127.0.0.1:5000/api/sPosts';
+         	axios.get(`${API_URL}`)
+            	.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = post.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = post.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+            	.catch(error =>
+               		console.error('sellingPostRelation', error)
+            )
+			
+		}
+
 		function carSellAll(){
 			var fFeatureID = document.getElementById('featureID').value;
 			var carLead = document.getElementById('carLead');
@@ -590,6 +629,10 @@
 	</form>
 	<label> Insert Post: </label>
 	<button name = "Insert Post" onclick = "onCheck(); insertPost();">Insert Post</button>
+	<!-- Show selling Posts and Posts relation -->
+	<br><br>
+	<label>Show Selling Posts and their corresponding Post, along with content:</label>
+	<button name = "Show Posts" onclick = "sellingPostRelation()">Show Posts!</button>
 	<!-- Edit Post Field -->
 	<br>
 	<form> 

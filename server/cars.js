@@ -45,6 +45,12 @@ class Cars {
 			"SELECT p_user_id as User_ID, p_content as Content, p_post_id as Post_ID, p_stype as Selling_Post FROM Posts", []
 		)
 	}
+
+	sPosts() {
+		return this.all(
+			"SELECT * FROM Posts p, sellPost sp WHERE sp.p_id = p.p_post_id", []
+		)
+	}
 	
 	allComments() { 
 		return this.all(

@@ -21,6 +21,10 @@ UPDATE Commenters
 SET cm_count = cm_count + 1
 WHERE cm_user_id = 'user7';
 
+SELECT * 
+FROM Posts p, sellPost sp
+WHERE sp.p_id = p.p_post_id
+
 -- COMPLETED
 -- Case: Updating commenters count, when comment is deleted
 --10-- keep count if youre removing some queries then remove

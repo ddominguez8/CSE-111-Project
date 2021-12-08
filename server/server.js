@@ -144,6 +144,20 @@ app.get("/api/comments", (req, res, next) => {
     })
 });
 
+app.get("/api/sPosts", (req, res, next) => {
+    cars.sPosts()
+    .then((posts) => {
+        res.json({
+            "message": "success!",
+            "data": posts
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
 app.get("/api/pids", (req, res, next) => {
     cars.postIDs()
     .then((postIDs) => {
