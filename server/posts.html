@@ -699,6 +699,14 @@
 	<button onclick="decreaseCommenters();"> Decrease Count by 1 </button>
 	<br>
 
+	<!--Best Selling Cars With Features-->
+	<h1> Best Selling Cars Leaderboard </h1>
+		<label> Select Feature </label>
+		<select name = "featureID" id = "featureID"> 
+			<option value = ''>------- Select --------</option>
+		</select>
+		<button onclick="carSellLead();"> Show Leaderboard </button>
+	<br>
 
 	<!-- Post and Comments table -->
 	<br><br><br>
@@ -707,16 +715,6 @@
 	<table name = "post" id = "post"></table>
 	<br><br>
 	<table name = "comments" id = "comments"></table>
-
-	<!--Best Selling Cars With Features-->
-	<h1> Best Selling Cars Leaderboard </h1>
-	<br>
-		<label> Select Feature </label>
-		<select name = "featureID" id = "featureID"> 
-			<option value = ''>------- Select --------</option>
-		</select>
-		<button onclick="carSellLead();"> Show Leaderboard </button>
-	<br>
 	<table name = "carLead" id = "carLead"></table>
 </body>
 
