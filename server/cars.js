@@ -54,7 +54,7 @@ class Cars {
 
 	allCommenters() { 
 		return this.all(
-			"SELECT cm_id as Comment_ID, cm_user_id as Commenters_User_ID, cm_count as Commenters_Count FROM Commenters " +
+			"SELECT cm_id as Commenter_ID, cm_user_id as Commenters_User_ID, cm_count as Commenters_Count FROM Commenters " +
 			"ORDER BY Commenters_Count DESC", []
 		)
 	}

@@ -495,7 +495,7 @@
 		function carSellAll(){
 			var fFeatureID = document.getElementById('featureID').value;
 			var carLead = document.getElementById('carLead');
-			post.innerHTML = "";
+			carLead.innerHTML = "";
 			const API_URL = `http://127.0.0.1:5000/api/carSellLeadAll`
 
 			axios.get(`${API_URL}`)
@@ -534,7 +534,7 @@
 
 			var fFeatureID = document.getElementById('featureID').value;
 			var carLead = document.getElementById('carLead');
-			post.innerHTML = "";
+			carLead.innerHTML = "";
 			const API_URL = `http://127.0.0.1:5000/api/carSellLead/${fFeatureID}`
 			if(fFeatureID == "All")
 				{carSellAll();
@@ -715,6 +715,7 @@
 	<table name = "post" id = "post"></table>
 	<br><br>
 	<table name = "comments" id = "comments"></table>
+	<br>
 	<table name = "carLead" id = "carLead"></table>
 </body>
 
