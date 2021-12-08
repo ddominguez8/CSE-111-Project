@@ -158,6 +158,51 @@ app.get("/api/pids", (req, res, next) => {
     })
 });
 
+
+app.get("/api/fids", (req, res, next) => {
+    cars.featureIDs()
+    .then((featureIDs) => {
+        res.json({
+            "message": "success!",
+            "data": featureIDs
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/carSellLeadAll", (req, res, next) => {
+    cars.carSellAll()
+    .then((carSellAll) => {
+        res.json({
+            "message": "success!",
+            "data": carSellAll
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+app.get("/api/carSellLead/:featureID", (req, res, next) => {
+    cars.carSells(req.params.featureID)
+    .then((carSells) => {
+        res.json({
+            "message": "success!",
+            "data": carSells
+        })
+    })
+	.catch((err) => {
+        res.status(400).json({"error": err.message });
+        return;
+    })
+});
+
+
+
 app.get("/api/cInsert/:prID-:cCounter-:content", (req, res, next) => {
     cars.insertComment(req.params.prID, req.params.cCounter,req.params.content)
     .then(() => {

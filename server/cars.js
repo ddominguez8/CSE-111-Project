@@ -64,6 +64,40 @@ class Cars {
 			"SELECT p_post_id FROM Posts", []
 		)
 	}
+	
+
+	featureIDs(){
+		return this.all( 
+			"SELECT f_features FROM Features", []
+		)
+	}
+
+	carSellAll(){
+		return this.all(
+			"SELECT bs.b_year as Year, bs.b_model as model, bs.b_manufacturer as manufacturer, b_amountSold as AmountSold, f.f_features as Features " +
+			"FROM Features f, carFeatures cf, Best_Selling_Cars bs " +
+			"WHERE bs.b_id = cf.b_id " +
+			"AND cf.f_id = f.f_id " +
+			"GROUP BY bs.b_year, bs.b_model, bs.b_manufacturer, bs.b_amountSold, f.f_features " +
+			"ORDER BY bs.b_amountSold DESC " +
+			"LIMIT 15", []
+		)
+	}
+
+	carSells(_featureID){
+		return this.all(
+			"SELECT bs.b_year as Year, bs.b_model as model, bs.b_manufacturer as manufacturer, b_amountSold as AmountSold, f.f_features as Features " +
+			"FROM Features f, carFeatures cf, Best_Selling_Cars bs " +
+			"WHERE bs.b_id = cf.b_id " +
+			"AND cf.f_id = f.f_id " +
+			"AND f.f_features = ? " +
+			"GROUP BY bs.b_year, bs.b_model, bs.b_manufacturer, bs.b_amountSold, f.f_features " +
+			"ORDER BY bs.b_amountSold DESC " +
+			"LIMIT 15", [_featureID]
+		)
+	}
+
+
 
 	insertComment(_prID, _cCounter, _content) {
 		++_cCounter;

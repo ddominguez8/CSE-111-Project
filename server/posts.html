@@ -468,9 +468,112 @@
 				.catch(error =>
 					console.error('populatePosts', error))
 		}
+
+		function popluateFeatureIDs() {
+			var featureID = document.getElementById('featureID');
+		
+			
+         	const API_URL = 'http://127.0.0.1:5000/api/fids';
+         	axios.get(`${API_URL}`)
+            	.then(response => {
+					for (x=0; x<response.data.data.length; x++) {
+					option = document.createElement('option');
+					option.value = response.data.data[x].f_features;
+					option.text = response.data.data[x].f_features;
+					featureID.appendChild(option);
+					}
+					option.value = "All";
+					option.text = "All"
+					featureID.appendChild(option);
+            	})
+            	.catch(error =>
+               		console.error('popluateFeatureIDs', error)
+            )
+			
+		}
+
+		function carSellAll(){
+			var fFeatureID = document.getElementById('featureID').value;
+			var carLead = document.getElementById('carLead');
+			post.innerHTML = "";
+			const API_URL = `http://127.0.0.1:5000/api/carSellLeadAll`
+
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = carLead.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = carLead.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('carSellLead', error))
+		}
+
+		function carSellLead(){
+
+			var fFeatureID = document.getElementById('featureID').value;
+			var carLead = document.getElementById('carLead');
+			post.innerHTML = "";
+			const API_URL = `http://127.0.0.1:5000/api/carSellLead/${fFeatureID}`
+			if(fFeatureID == "All")
+				{carSellAll();
+				return;}
+
+			axios.get(`${API_URL}`)
+				.then(response => {
+					// Don't do anything if there's no data.
+					if (response.data.data.length == 0) {
+						return;
+					}
+
+					// Create table displaying all the values.
+					let thead = carLead.createTHead();
+					let row = thead.insertRow();
+					for (key in response.data.data[0]) {
+						//console.log(key);
+						let th = document.createElement("th");
+						let text = document.createTextNode(key);
+						th.appendChild(text);
+						row.appendChild(th);
+					}
+					// Continue adding onto the table with the rest of values.
+					for (x=0; x<response.data.data.length; x++) {
+						let row = carLead.insertRow();
+						for (k in response.data.data[x]) {
+							//console.log(k);
+							let cell = row.insertCell();
+							let text = document.createTextNode(response.data.data[x][k])
+							cell.appendChild(text);
+						}
+					}
+				})
+				.catch(error =>
+					console.error('carSellLead', error))
+			}
 	</script>
 </head>
-<body onload = "populatePostIds()">
+<body onload = "populatePostIds(); popluateFeatureIDs();">
 	<!--You can format your front-end to your heart's content here, ideally 
 	it has more than just these barebones but we're focusing completely on 
 	functionality first! -->
@@ -604,6 +707,17 @@
 	<table name = "post" id = "post"></table>
 	<br><br>
 	<table name = "comments" id = "comments"></table>
+
+	<!--Best Selling Cars With Features-->
+	<h1> Best Selling Cars Leaderboard </h1>
+	<br>
+		<label> Select Feature </label>
+		<select name = "featureID" id = "featureID"> 
+			<option value = ''>------- Select --------</option>
+		</select>
+		<button onclick="carSellLead();"> Show Leaderboard </button>
+	<br>
+	<table name = "carLead" id = "carLead"></table>
 </body>
 
 </html>
