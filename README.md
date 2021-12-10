@@ -2,7 +2,12 @@
 This is a project done in collaboration with David Dominguez and Salvador Rodriguez, done for CSE-111 (Databases) at the University of California, Merced. The sole purpose of this repository is for archival purposes ONLY and may not be used without proper credit to the authors. 
 
 ## Project Description
-**insert project description here when we cross that bridge**
+- Our project is a simple WebPage where users are able to view, post, and talk about cars.
+- Users are able to view best selling car models based on features
+- Users are able post questions or just general opinions on car models
+- Users can reply or comment on posts
+- Comment Leaderboard for all the users, information could be used for giveaways or prizes, ultimately encourages interaction. 
+
 
 # Project Checkpoint 1: 
 - Slides containing everything are provided here: [Project Checkpoint 1 Slides] (https://docs.google.com/presentation/d/1GXq55Nc1rjkZm6bAc6eV-gmljOE1OFOqZPr_Dk32y9g/edit?usp=sharing)
@@ -21,9 +26,6 @@ npm install express
 npm install sqlite3
 npm install bluebird
 ```
-- Note to Sal: Please add the newly created **node_modules** folder to the .gitignore file (in root of repo dir) by running: 
-```
-echo node_modules > .gitignore
-```
+
 - Run the project by running `node server.js` while in the /server directory. 
 - Note any errors that come up during the process in case we need to address them.
