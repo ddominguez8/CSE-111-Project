@@ -14,18 +14,6 @@ class Cars {
 		})
 	}
 
-	// postCount() {
-	// 	let sql = `SELECT COUNT(p_user_id) as count FROM Posts`;
-	// 	this.db.each(sql, [], (err, row) => {
-	// 		if (err) {
-	// 			return console.error(err.message)
-	// 		}
-	// 		_pID = `${row.count}`
-	// 		_pID++;
-	// 	})
-		
-	// }
-
 	all(sql, params = []) {
 		return new Promise((resolve, reject) => {
 			this.db.all(sql, params, (err, rows) => {
@@ -39,6 +27,7 @@ class Cars {
 			})
 		})
 	}
+	// Selecting items for Posts.
 
 	allPosts() {
 		return this.all(
@@ -46,12 +35,6 @@ class Cars {
 		)
 	}
 
-	sPosts() {
-		return this.all(
-			"SELECT * FROM Posts p, sellPost sp WHERE sp.p_id = p.p_post_id", []
-		)
-	}
-	
 	allComments() { 
 		return this.all(
 			"SELECT c_user_id as User_ID, c_reply_post_id as In_Reply_To_Post_ID, c_id as Comment_ID, c_content as Content FROM Comments", []
@@ -62,6 +45,12 @@ class Cars {
 		return this.all(
 			"SELECT cm_id as Commenter_ID, cm_user_id as Commenters_User_ID, cm_count as Commenters_Count FROM Commenters " +
 			"ORDER BY Commenters_Count DESC", []
+		)
+	}
+
+	sPosts() {
+		return this.all(
+			"SELECT * FROM Posts p, sellPost sp WHERE sp.p_id = p.p_post_id", []
 		)
 	}
 
@@ -103,7 +92,7 @@ class Cars {
 		)
 	}
 
-
+	// Insertion for Posts.
 
 	insertComment(_prID, _cCounter, _content) {
 		++_cCounter;
@@ -120,6 +109,8 @@ class Cars {
 			" VALUES ('anonymous', ? , ? , ?)", [_content, _pID, _sPost]
 		)
 	}
+
+	// Update values for Post.
 
 	editPost(_newContent, _postID) {
 		return this.all(
@@ -156,6 +147,8 @@ class Cars {
 			"UPDATE Commenters SET cm_count = cm_count -1 WHERE cm_user_id = ?", [_UserID]
 		)
 	}
+
+	// Delete values for Post.
 
 	delPostID(_postID) {
 		return this.all(
@@ -200,12 +193,8 @@ class Cars {
 			"GROUP BY c_user_id", [_postIDQ]
 		)
 	}
-	insertUser(_userID, _email, _password) {
-		return this.all(
-			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES (? , ? , ? )", [_userID, _email, _password]
-		)
-	}
-	
+	// Selections for Users.
+
 	allUsers() {
 		return this.all(
 			"SELECT u_user_id as User_ID, u_email as User_Email, u_password as Passwords FROM Users", []
@@ -224,12 +213,24 @@ class Cars {
 		)
 	}
 
+	// Insertions for Users.
+
+	insertUser(_userID, _email, _password) {
+		return this.all(
+			"INSERT INTO Users(u_user_id, u_email, u_password) VALUES (? , ? , ? )", [_userID, _email, _password]
+		)
+	}
+
+	// Update values for Users.
+
 	updateUser(_newUserID, _oldUserID) {
 		return this.all(
 			"UPDATE Users SET u_user_id = ? WHERE u_user_id = ?", [_newUserID, _oldUserID]
 		)
 	}
 
+	// Delete values for Users.
+	
 	delUser(_UserID) {
 		return this.all(
 			"DELETE FROM Users WHERE u_user_id = ?", [_UserID]

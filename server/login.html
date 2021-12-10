@@ -1,3 +1,5 @@
+<!-- Sample code provided by Florin Rusu.
+David Dominguez and Salvador Rodriguez -->
 <!DOCTYPE html>
 <html>
 <head> 
@@ -7,9 +9,9 @@
 	<script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
 
 	<script>
+		// loginUserID is later used so that their name displays in the upper left.
 		var loginUserID = '';
 		function insertUser() {
-			// Grab what element you'll be using to insert. 
 			var email = document.getElementById('Remail').value;
 			var password = document.getElementById('Rpassword').value;
 			var passwordConfirm = document.getElementById('passwordC').value;
@@ -27,9 +29,7 @@
 				return;
 			}
 			x.innerHTML = "Succesfully Added!";
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+
 			const API_URL = `http://127.0.0.1:5000/api/uInsert/${userID}-${email}-${password}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -47,9 +47,7 @@
 			var user = document.getElementById('users');
 			user.innerHTML = "";
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+
 			const API_URL = 'http://127.0.0.1:5000/api/allUsers';
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -84,17 +82,11 @@
 		}
 
 		function checkUser() {
-			// Grab what element you'll be using to insert. 
 			var x = document.getElementById('error');
 			var userID = document.getElementById('RuserID').value;
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/userQuery/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
 					if (response.data.data.length == 0) {
 						x.innerHTML = 'User ID is available!';
 						return;
@@ -110,13 +102,9 @@
 		}
 
 		function checkUserUpdate() {
-			// Grab what element you'll be using to insert. 
 			var x = document.getElementById('error');
 			var userID = document.getElementById('UpdateUserID').value;
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/userQuery/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -136,7 +124,6 @@
 		}
 
 		function userLogin() {
-			// Grab what element you'll be using to insert. 
 			var email = document.getElementById('Lemail').value;
 			var password = document.getElementById('Lpassword').value;
 			// x is what we'll use to display any errors/successes.
@@ -149,9 +136,7 @@
 				return;
 			}
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+
 			const API_URL = `http://127.0.0.1:5000/api/uLogin/${email}-${password}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -176,7 +161,6 @@
 			y.innerHTML = loginUserID;
 		}
 		function updateUserIDfunc() {
-			// Grab what element you'll be using to insert. 
 			var x = document.getElementById('error');
 			var newUserID = document.getElementById('UpdateUserID').value;
 			var y = document.getElementById('userLogin');
@@ -186,9 +170,7 @@
 				return;
 			}
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+
 			const API_URL = `http://127.0.0.1:5000/api/uUpdate/${newUserID}-${loginUserID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -200,13 +182,9 @@
 		}
 
 		function delUserID() {
-			// Grab what element you'll be using to insert. 
 			var x = document.getElementById('error');
 			var userID = document.getElementById('DeleteUserID').value;
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/delUser/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
@@ -220,6 +198,7 @@
 </head>
 
 <body onload="userInit();">
+	<!-- Login -->
 	<h1> Login for Carnet </h1>
 	<p>Currently Logged In As: <span id = 'userLogin' name = 'userLogin'> </span> </p>
 	<form> 
@@ -229,7 +208,7 @@
 		<input type = 'text' id = 'Lpassword' name = 'Lpassword'> <br> <br>
 	</form>
 	<button name = 'Login' onclick = 'userLogin();'>Login</button>
-
+	<!-- Registration -->
 	<p id = 'RAccount'> Don't have an account? Register with one below! </p>
 	<form id = 'RForm'> 
 		<label for ='RuserID'>User ID (check with Check User ID button below):</label> <br>
@@ -244,7 +223,7 @@
 	<button id = 'CheckUserID' onclick = "checkUser();">Check User ID</button> <br> <br>
 	<button id = 'Register' onclick = 'insertUser();'>Register</button>
 	<button id = 'ShowUsers' onclick = 'showUsers();'>Show Users!</button>
-
+	<!-- Updating User ID -->
 	<h2> Update User ID </h2>
 	<form id = 'UpdateUserIDForm'> 
 		<label for ='UpdateUserID'>Enter your new user ID here:</label> <br>
@@ -252,14 +231,14 @@
 	</form>
 	<button id = 'CheckUserID2' onclick = 'checkUserUpdate();'>Check User ID </button> 
 	<button id = 'UpdateUserIDButton' onclick = 'updateUserIDfunc();'> Update User ID</button>
-
+	<!-- Deleting User ID -->
 	<h2> Delete User ID </h2>
 	<form> 
 		<label for ='DeleteUserID'>Enter the user ID you'd like to delete here:</label> <br>
 		<input type = 'text' id = 'DeleteUserID'> <br>
 	</form>
 	<button onclick = 'delUserID();'>Delete</button> 
-
+	<!-- Error and table of users -->
 	<p name = 'error' id = 'error'> </p>
 	<br><br>
 	<table name = "users" id = "users"></table>

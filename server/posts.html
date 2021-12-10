@@ -1,3 +1,5 @@
+<!-- Sample code provided by Florin Rusu.
+David Dominguez and Salvador Rodriguez -->
 <!DOCTYPE html>
 <html>
 <head> 
@@ -11,17 +13,13 @@
 		var cCounter = 0;
 		var sPost = '';
 		function populatePosts() {
-			// Grab what element you'll be modifying. 
 			var post = document.getElementById('post');
 			post.innerHTML = "";
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = 'http://127.0.0.1:5000/api/posts';
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -53,17 +51,13 @@
 					console.error('populatePosts', error))
 		}
 		function populateComments() {
-			// Grab what element you'll be modifying. 
 			var comments = document.getElementById('comments');
 			comments.innerHTML = "";
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = 'http://127.0.0.1:5000/api/comments';
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -95,17 +89,13 @@
 					console.error('populateComments', error))
 		}
 		function insertComment() {
-			// Grab what element you'll be modifying. 
 			var prID = document.getElementById('prID').value;
 			var content = document.getElementById('cContent').value;
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/cInsert/${prID}-${cCounter}-${content}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -115,16 +105,12 @@
 					console.error('insertComment', error))
 		}
 		function insertPost() {
-			// Grab what element you'll be modifying. 
 			var content = document.getElementById('pContent').value;	
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/pInsert/${content}-${pCounter}-${sPost}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -166,19 +152,15 @@
 			}
 		}
 		function editPost() {
-			// Grab what element you'll be modifying. 
 			var newContent = document.getElementById('editPostText').value;
 			var postID = document.getElementById('postIDEdit').value;
 			var x = document.getElementById('error');	
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/pEdit/${newContent}-${postID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
 					x.innerHTML = "Successfully changed.";
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -187,22 +169,17 @@
 				.catch(error =>
 					console.error('editPost', error))
 			// Add the new ID into the Post IDs drop down menu.
-
 		}
 
 		function postIDQueryInfo() {
-			// Grab what element you'll be modifying. 
 			var postID = document.getElementById('postIDQuery').value;
 			var post = document.getElementById('post');
 			post.innerHTML = "";
 
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/pQuery/${postID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -234,19 +211,15 @@
 		}
 
 		function editPostUserID() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('pUserIDEditOld').value;
 			var newUserID = document.getElementById('pUserIDEditNew').value;
 			console.log(userID);
 			console.log(newUserID);
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/pEditUser/${userID}-${newUserID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -256,17 +229,13 @@
 		}
 
 		function editCommentUserID() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('cUserIDEditOld').value;
 			var newUserID = document.getElementById('cUserIDEditNew').value;
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/cEditUser/${userID}-${newUserID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -276,17 +245,13 @@
 		}
 
 		function editCommenterUserID() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('cmUserIDEditOld').value;
 			var newUserID = document.getElementById('cmUserIDEditNew').value;
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/cmEditUser/${userID}-${newUserID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -296,16 +261,12 @@
 		}
 
 		function increaseCommenters() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('cmUserCountIORD').value;
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/cmInc/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -315,16 +276,12 @@
 		}
 
 		function decreaseCommenters() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('cmUserCountIORD').value;
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/cmDec/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -334,17 +291,12 @@
 		}
 
 		function delPostID() {
-			// Grab what element you'll be modifying. 
 			var postID = document.getElementById('dPostID').value;
-
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/dPost/${postID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -354,17 +306,12 @@
 		}
 
 		function delPostUser() {
-			// Grab what element you'll be modifying. 
 			var userID = document.getElementById('dPostUser').value;
-
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/dPostUser/${userID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -374,16 +321,10 @@
 		}
 
 		function cleanupPost() {
-			// Grab what element you'll be modifying. 
-
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/cleanupPost/`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -393,13 +334,10 @@
 		}
 
 		function cleanupCommenters() {
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
 			const API_URL = `http://127.0.0.1:5000/api/cleanupCommenters`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -409,17 +347,12 @@
 		}
 
 		function delCommentID() {
-			// Grab what element you'll be modifying. 
 			var commentID = document.getElementById('dCommentID').value;
-
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = `http://127.0.0.1:5000/api/dComment/${commentID}`;
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -429,17 +362,13 @@
 		}
 
 		function populateCommenters() {
-			// Grab what element you'll be modifying. 
 			var post = document.getElementById('comments');
 			post.innerHTML = "";
-
-			// Declare the API you will be calling from, you can always 
-			// see the output of what you'll be pulling to make sure the 
-			// data is right before you format it onto the page.
+			
 			const API_URL = 'http://127.0.0.1:5000/api/commenters';
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -471,7 +400,6 @@
 
 		function popluateFeatureIDs() {
 			var featureID = document.getElementById('featureID');
-		
 			
          	const API_URL = 'http://127.0.0.1:5000/api/fids';
          	axios.get(`${API_URL}`)
@@ -499,7 +427,7 @@
          	const API_URL = 'http://127.0.0.1:5000/api/sPosts';
          	axios.get(`${API_URL}`)
             	.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -539,7 +467,7 @@
 
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -570,7 +498,6 @@
 		}
 
 		function carSellLead(){
-
 			var fFeatureID = document.getElementById('featureID').value;
 			var carLead = document.getElementById('carLead');
 			carLead.innerHTML = "";
@@ -581,7 +508,7 @@
 
 			axios.get(`${API_URL}`)
 				.then(response => {
-					// Don't do anything if there's no data.
+					
 					if (response.data.data.length == 0) {
 						return;
 					}
@@ -613,9 +540,6 @@
 	</script>
 </head>
 <body onload = "populatePostIds(); popluateFeatureIDs();">
-	<!--You can format your front-end to your heart's content here, ideally 
-	it has more than just these barebones but we're focusing completely on 
-	functionality first! -->
 	<h1> Hi and welcome to CarNet! </h1>
 	<h1> Posts Section</h1>
 	<label>Posts:</label>
